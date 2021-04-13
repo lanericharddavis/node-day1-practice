@@ -3,10 +3,10 @@ import { catsService } from "../services/CatsService";
 
 export class CatsController extends BaseController {
   constructor() {
-    super("api/values");
+    super("api/cats");
     this.router
       .get("", this.getAll)
-      .post("", this.create);
+      .post("", this.create)
   }
 
   /**
@@ -15,9 +15,9 @@ export class CatsController extends BaseController {
    * @param {import("express").Response} res 
    * @param {import("express").NextFunction} next 
    */
-  async getAll(req, res, next) {
+  async getAll(_, res, next) {
     try {
-      const values = catsService.find()
+      const values = await catsService.find()
       return res.send(values);
     } catch (error) {
       next(error);
@@ -32,7 +32,7 @@ export class CatsController extends BaseController {
    */
   async create(req, res, next) {
     try {
-      const value = catsService.create(req.body)
+      const value = await catsService.create(req.body)
       res.send(value);
     } catch (error) {
       next(error);

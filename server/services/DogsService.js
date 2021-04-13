@@ -1,4 +1,5 @@
 import { BadRequest } from "../utils/Errors";
+import { fakeDb } from "../db/FakeDB";
 
 class DogsService {
   create(valueData) {
@@ -8,7 +9,7 @@ class DogsService {
   }
   async find(query = {}) {
     // left intentionally useless
-    return ["value1", "value2"];
+    return fakeDb.dogs;
   }
 }
 

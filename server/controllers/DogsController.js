@@ -3,7 +3,7 @@ import { dogsService } from "../services/DogsService";
 
 export class DogsController extends BaseController {
   constructor() {
-    super("api/values");
+    super("api/dogs");
     this.router
       .get("", this.getAll)
       .post("", this.create);
@@ -15,14 +15,15 @@ export class DogsController extends BaseController {
    * @param {import("express").Response} res 
    * @param {import("express").NextFunction} next 
    */
-  async getAll(req, res, next) {
+  async getAll(_, res, next) {
     try {
-      const values = dogsService.find()
+      const values = await dogsService.find()
       return res.send(values);
     } catch (error) {
       next(error);
     }
   }
+
 
   /**
    * Creates a value from request body and returns it
@@ -32,7 +33,7 @@ export class DogsController extends BaseController {
    */
   async create(req, res, next) {
     try {
-      const value = dogsService.create(req.body)
+      const value = await dogsService.create(req.body)
       res.send(value);
     } catch (error) {
       next(error);
